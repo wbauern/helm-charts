@@ -114,12 +114,13 @@ spec:
             {{- tpl . $ | nindent 12 }}
             {{- end }}
           ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
           {{- if .Values.keycloak.service.enableHttps }}
             - name: https
               containerPort: 8443
+              protocol: TCP
+          {{- else }}
+            - name: http
+              containerPort: 8080
               protocol: TCP
           {{- end }}
           {{- if $highAvailability }}
