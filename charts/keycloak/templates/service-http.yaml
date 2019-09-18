@@ -15,6 +15,15 @@ metadata:
 spec:
   type: {{ $service.type }}
   ports:
+    {{- if $service.enableHttps }}
+    - name: https
+      port: {{ $service.httpsPort }}
+      protocol: TCP
+      targetPort: https
+      {{- if and (eq "NodePort" $service.type) $service.httpsNodePort }}
+      nodePort: {{ $service.httpsNodePort }}
+      {{- end }}
+    {{ else }}
     - name: http
       port: {{ $service.port }}
       targetPort: http
@@ -22,5 +31,6 @@ spec:
       nodePort: {{ $service.nodePort }}
     {{- end }}
       protocol: TCP
+    {{- end }}
   selector:
     {{- include "keycloak.selectorLabels" . | nindent 4 }}

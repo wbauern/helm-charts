@@ -9,10 +9,17 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
+    {{- if .Values.keycloak.service.enableHttps }}
+    - name: https
+      port: {{ .Values.keycloak.service.httpsPort }}
+      targetPort: https
+      protocol: TCP
+    {{ else }}
     - name: http
       port: {{ .Values.keycloak.service.port }}
       targetPort: http
       protocol: TCP
+    {{- end }}
   {{- if $highAvailability }}
     - name: jgroups
       port: {{ .Values.keycloak.service.jgroupsPort }}

@@ -206,6 +206,7 @@ keycloak:
     # Optional: jGroups port for high availability clustering
     jgroupsPort: 7600
 
+    enableHttps: false
   ## Ingress configuration.
   ## ref: https://kubernetes.io/docs/user-guide/ingress/
   ingress:
@@ -229,6 +230,8 @@ keycloak:
     # - hosts:
     #     - keycloak.example.com
     #   secretName: tls-keycloak
+    
+    enableHttps: false
 
   ## OpenShift route configuration.
   ## ref: https://docs.openshift.com/container-platform/3.11/architecture/networking/routes.html
